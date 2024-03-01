@@ -60,7 +60,7 @@ OTP.
 [RFC 6238, 5.2](https://datatracker.ietf.org/doc/html/rfc6238#section-5.2)
 
 ## Why yet another TOTP package?
-There are some widely used node TOTP/2FA packages available. However, when I researched them, all of them seemed to be unmaintained and have some areas that could be improved.
+There are some widely used node TOTP/2FA packages available. However, when I researched them, all of them seemed to be unmaintained and have some areas that could be improved (including security-critical issues).
 Obviously, the TOTP specification is 10 years old and didn't change since then - but I was still unhappy with the packages available.
 
 Your use-case might vary (e.g. if you need more customization than this package can offer), but here are the reasons why I didn't use other packages and decided to write my own:
