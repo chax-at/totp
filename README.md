@@ -65,17 +65,17 @@ Obviously, the TOTP specification is 10 years old and didn't change since then -
 
 Your use-case might vary (e.g. if you need more customization than this package can offer), but here are the reasons why I didn't use other packages and decided to write my own:
 
-* speakeasy seems to be the most recommended package in tutorials. However, it doesn't generate secure secrets.
+* **speakeasy** seems to be the most recommended package in tutorials. However, it doesn't generate secure secrets.
   * speakeasy forgot that the letter "j" exists, therefore it doesn't appear in the secret at all \[[source](https://github.com/speakeasyjs/speakeasy/blob/cff2bb42cde5e74c43493a8f26b20e52960df531/index.js#L563)\]
-  * speakeasy introduces a bias in the secret which doesn't make it completey random. There is a [PR](https://github.com/speakeasyjs/speakeasy/pull/92) attempting to fix it - but the package is not maintained.
-* otplib has even more weekly downloads and doesn't have a bias in their secret generation. However, their generated secrets are way too short (unless you specify a length) and don't even meet the minimum defined in the TOTP specification.
+  * speakeasy introduces a bias in the secret which prevents it from being completey random, making attacks easier. There is a [PR](https://github.com/speakeasyjs/speakeasy/pull/92) attempting to fix it - but the package is not maintained.
+* **otplib** has even more weekly downloads and doesn't have a bias in their secret generation. However, their generated secrets are way too short (unless you specify a length) and don't even meet the minimum defined in the TOTP specification.
   * RFC 4226 states that "The length of the shared secret MUST be at least 128 bits. This document RECOMMENDs a shared secret length of 160 bits."
   * This means that a secret must be at least 16 bytes long, and is recommended to be 20 bytes long (which this @chax-at/totp uses)
   * However, otplib changed their default (in a [20k lines changed commit](https://github.com/yeojz/otplib/commit/b088efe9da45e102e59b5cd2c0df5bddf80c5a92)) in 12.0.0 from a secure 20 bytes to just 10 bytes (80 bits) \[[source](https://github.com/yeojz/otplib/blob/v12.0.0/packages/otplib-core/src/authenticator.ts#L265-L267)]
     * This was not mentioned in the upgrade guide
     * The [issue mentioning this](https://github.com/yeojz/otplib/issues/671) from 2022 has no response from the maintainer 
   * I can't say much about the rest of the library because the code is split up in 12 packages (compared to the 2 files with 40/70 lines each in @chax-at/totp) and I couldn't track all those abstraction layers by clicking through files in GitHub
-* node-2fa seems to be the best out of all the packages mentioned so far
+* **node-2fa** doesn't have obvious security issues. However, there are still some things stopping me from using it.
   * `generateSecret` also returns a helpful QR code link - that immediately sends your secret to Google. You should really generate your own QR codes instead of sending your secrets to Google.
   * It depends on `notp` for key generation
     * `notp` contains code that has been deprecated in node, e.g. `new Buffer(...)`. This is not a security issue - but will show a deprecation warning for everyone using their package. There is a [PR](https://github.com/guyht/notp/pull/59) from 2021 which has not been merged yet.
