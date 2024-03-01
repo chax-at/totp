@@ -6,6 +6,7 @@
   "author": "chax.at - Challenge Accepted",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "repository": "github:chax-at/totp",
   "scripts": {
     "prepack": "npm run check",
     "preversion": "npm run check",
