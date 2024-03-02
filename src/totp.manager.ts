@@ -14,7 +14,9 @@ export class TotpManager {
        */
       verifyWindow?: number;
     },
-  ) {}
+  ) {
+    if (options.verifyWindow != null && options.verifyWindow < 0) throw new Error('verifyWindow must be >= 0');
+  }
 
   /**
    * Generates a new base32 encoded secret which can be used for TOTP generation.
@@ -47,7 +49,9 @@ export class TotpManager {
    */
   public verify(secret: string, code: string): boolean {
     const verifyWindow = this.options.verifyWindow ?? 2;
-    if (verifyWindow < 0) throw new Error('verifyWindow must be >= 0');
+    if(code.length !== 6) {
+      return false;
+    }
 
     // loose: true allows non-20-byte secrets with missing padding characters as well
     const secretParsed = base32.parse(secret, { loose: true });
