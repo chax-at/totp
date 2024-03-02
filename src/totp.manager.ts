@@ -49,7 +49,8 @@ export class TotpManager {
     const verifyWindow = this.options.verifyWindow ?? 2;
     if (verifyWindow < 0) throw new Error('verifyWindow must be >= 0');
 
-    const secretParsed = base32.parse(secret);
+    // loose: true allows non-20-byte secrets with missing padding characters as well
+    const secretParsed = base32.parse(secret, { loose: true });
     // https://datatracker.ietf.org/doc/html/rfc6238#section-4.2
     const currentCounterValue = Math.floor(Date.now() / 30_000);
     for (let offset = -verifyWindow; offset <= verifyWindow; offset++) {
