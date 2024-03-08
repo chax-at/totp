@@ -6,18 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2024-03-08
+
+### Changed
+- Removed source maps.
+
 ## [0.2.0]- 2024-03-08
 
 ### Changed
 - Removed dependency on `rfc4648` package and added custom `base32` code instead.
 
-## [0.1.1]- 2024-03-02
+## [0.1.1] - 2024-03-02
 
 ### Fixed
 - Non-20-byte secrets no longer throw an error when verifying.
 - Fixed an error when verifying a code shorter/longer than 6 characters - this now returns `false`. 
 
-## [0.1.0]- 2024-03-01
+## [0.1.0] - 2024-03-01
 
 ### Added
 - Initial release

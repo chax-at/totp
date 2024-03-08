@@ -1,6 +1,6 @@
 {
   "name": "@chax-at/totp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple TOTP package",
   "license": "MIT",
   "author": "chax.at - Challenge Accepted",
