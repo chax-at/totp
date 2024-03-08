@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import { base32 } from 'rfc4648';
+import { Base32 } from './base32';
 import { generateHotp } from './hotp';
 
 export class TotpManager {
@@ -15,7 +15,8 @@ export class TotpManager {
       verifyWindow?: number;
     },
   ) {
-    if (options.verifyWindow != null && options.verifyWindow < 0) throw new Error('verifyWindow must be >= 0');
+    if (options.verifyWindow != null && options.verifyWindow < 0)
+      throw new Error('verifyWindow must be >= 0');
   }
 
   /**
@@ -28,7 +29,7 @@ export class TotpManager {
     // Length 20 bytes = 160 bits, according to https://www.ietf.org/rfc/rfc4226.txt recommendation
     const length = 20;
     const randomBytesBuffer = crypto.randomBytes(length);
-    const secret = base32.stringify(randomBytesBuffer, { pad: false });
+    const secret = Base32.encode(randomBytesBuffer);
     // otpauth URI according to https://github.com/google/google-authenticator/wiki/Key-Uri-Format
     const encodedIssuer = encodeURIComponent(this.options.issuer);
     const encodedAccountName = encodeURIComponent(accountName);
@@ -49,12 +50,11 @@ export class TotpManager {
    */
   public verify(secret: string, code: string): boolean {
     const verifyWindow = this.options.verifyWindow ?? 2;
-    if(code.length !== 6) {
+    if (code.length !== 6) {
       return false;
     }
 
-    // loose: true allows non-20-byte secrets with missing padding characters as well
-    const secretParsed = base32.parse(secret, { loose: true });
+    const secretParsed = Base32.decode(secret);
     // https://datatracker.ietf.org/doc/html/rfc6238#section-4.2
     const currentCounterValue = Math.floor(Date.now() / 30_000);
     for (let offset = -verifyWindow; offset <= verifyWindow; offset++) {

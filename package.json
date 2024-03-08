@@ -1,6 +1,6 @@
 {
   "name": "@chax-at/totp",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A simple TOTP package",
   "license": "MIT",
   "author": "chax.at - Challenge Accepted",
@@ -44,8 +44,5 @@
   ],
   "lint-staged": {
     "{src,test}/**/*.ts": "prettier --write"
-  },
-  "dependencies": {
-    "rfc4648": "^1.5.3"
   }
 }

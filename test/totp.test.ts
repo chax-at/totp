@@ -1,5 +1,5 @@
-import { base32 } from 'rfc4648';
 import { TotpManager } from '../src';
+import { Base32 } from '../src/base32';
 import { generateHotp } from '../src/hotp';
 
 const totpManager = new TotpManager({
@@ -87,10 +87,10 @@ test('Otpauth URL', () => {
 
 test('Complete OTP generation', () => {
   const { secret } = totpManager.generateSecret('AccountName');
-  const secretParsed = base32.parse(secret);
+  const secretBuffer = Base32.decode(secret);
   // Generate TOTP (simulating the TOTP app)
   const currentCounterValue = Math.floor(Date.now() / 30_000);
-  const totpCode = generateHotp(secretParsed, currentCounterValue);
+  const totpCode = generateHotp(secretBuffer, currentCounterValue);
 
   expect(totpManager.verify(secret, totpCode)).toEqual(true);
 });

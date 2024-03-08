@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0]- 2024-03-08
+
+### Changed
+- Removed dependency on `rfc4648` package and added custom `base32` code instead.
+
 ## [0.1.1]- 2024-03-02
 
 ### Fixed

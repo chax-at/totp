@@ -1,7 +1,7 @@
 // https://www.ietf.org/rfc/rfc4226.txt
 import * as crypto from 'crypto';
 
-export function generateHotp(secret: Uint8Array, counterValue: number): string {
+export function generateHotp(secret: Buffer, counterValue: number): string {
   const counter = getCounterBuffer(counterValue);
   // 5.3 Generating an HOTP Value
   // Step 1: Generate an HMAC-SHA-1 value
@@ -31,7 +31,7 @@ function getCounterBuffer(counterValue: number): Buffer {
   return counterBuffer;
 }
 
-function generateHmacSha1(key: Uint8Array, data: Buffer): Buffer {
+function generateHmacSha1(key: Buffer, data: Buffer): Buffer {
   const hmac = crypto.createHmac('sha1', key);
   hmac.update(data);
   return hmac.digest();

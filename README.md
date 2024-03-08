@@ -79,7 +79,6 @@ Your use-case might vary (e.g. if you need more customization than this package 
   * `generateSecret` also returns a helpful QR code link - that immediately sends your secret to Google. You should really generate your own QR codes instead of sending your secrets to Google.
   * It depends on `notp` for key generation
     * `notp` contains code that has been deprecated in node, e.g. `new Buffer(...)`. This is not a security issue - but will show a deprecation warning for everyone using their package. There is a [PR](https://github.com/guyht/notp/pull/59) from 2021 which has not been merged yet.
-    * It also has a default verification window of `50` \[[source](https://github.com/guyht/notp/blob/bbdf82a34e5cb1534c411aaa63185bfab29feba0/index.js#L112)\] for some reason which is _really_ high (The RFC recommends 1, @chax-at/totp uses 2). That's not a problem because node-2fa has their own default set to 4 - but still a weird thing to do...
   * This package doesn't have a changelog (or at least I couldn't find it)
 * No other package uses constant-time comparisons for checking the code. I don't think that timing attacks are very likely, but using a constant-time comparison function is super easy and prevents these attacks.
 
