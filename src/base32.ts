@@ -12,7 +12,7 @@ export class Base32 {
   }
 
   /**
-   * Encodes the given buffer to a base32 string according to RFC4648 but without `=` padding characters
+   * Encodes the given buffer to a base32 string according to RFC 4648 but without `=` padding characters
    */
   public static encode(buffer: Buffer): string {
     let encodedString = '';
@@ -35,7 +35,7 @@ export class Base32 {
         value += buffer[currentByteIndex + 1] >> (8 - bitsNeededFromSecondByte);
       }
 
-      // Add the new character from the alphabet
+      // Add the new character from the alphabet, using a 5-bit-mask to remove all additional bits on the left side (which are there because we shifted left)
       encodedString += this.alphabet[value & this.mask];
 
       // The bit offset is always increased by 5 because we used 5 bits
@@ -52,14 +52,15 @@ export class Base32 {
   }
 
   /**
-   * Decodes the given base32 string into a new buffer according to RFC4648. Ignores padding characters `=`.
+   * Decodes the given base32 string into a new buffer according to RFC 4648. Ignores padding characters `=`.
    */
   public static decode(input: string): Buffer {
     // Alloc buffer and initializes it to 0
     const buffer = Buffer.alloc(Math.floor((input.length * 5) / 8));
     // Alphabet is uppercase only, and we ignore padding characters
     const uppercase = input.toUpperCase().replace(/=/g, '');
-    // How many bits have we already added to the current byte? Each byte takes 8 bits
+
+    // How many bits have we already added to the current byte? Each byte takes 8 bits, additional bits on the current char will be added to the next byte
     let bitsAddedToCurrentByte = 0;
     // Where in the buffer do we write the next bits?
     let currentBufferOffset = 0;
@@ -70,7 +71,7 @@ export class Base32 {
       const bitsToSecondByte = 5 - (8 - bitsAddedToCurrentByte);
       // Translate value from alphabet
       const currentValue = this.getValueFromChar(uppercase[i]);
-      // Write to the current buffer, cutting of the last [bitsToSecondByte] bit by shifting right.
+      // Write to the current buffer, cutting of the last [bitsToSecondByte] bits by shifting right.
       // If negative, then we shift left instead (as described above)
       buffer[currentBufferOffset] += this.shiftRight(currentValue, bitsToSecondByte);
 
@@ -80,8 +81,9 @@ export class Base32 {
         buffer[currentBufferOffset + 1] += (currentValue & mask) << (8 - bitsToSecondByte);
       }
 
-      // We just added 5 bits
+      // We just added 5 bits by consuming 1 character
       bitsAddedToCurrentByte += 5;
+
       if (bitsAddedToCurrentByte >= 8) {
         // Current byte is full, go to next byte
         currentBufferOffset++;

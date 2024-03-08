@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2019",
+    "module": "node16",
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "sourceMap": false,
     "declaration": true,
     "outDir": "./lib",
-    "moduleResolution": "Node",
     "strict": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
