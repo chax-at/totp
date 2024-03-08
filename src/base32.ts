@@ -111,7 +111,7 @@ export class Base32 {
   }
 
   /**
-   * Shift right that will shift right instead when the shiftAmount is negative
+   * Shift right that will shift left instead when the shiftAmount is negative
    */
   private static shiftRight(value: number, shiftAmount: number): number {
     return this.shiftLeft(value, -shiftAmount);
