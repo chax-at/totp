@@ -4,7 +4,7 @@ A simple package which can be used to implement TOTP two-factor codes.
 Implements the default use case (6-digit codes, 30s time steps, 20-byte/160-bit base32-encoded secret, using SHA1) but doesn't provide much customization.
 
 These default values are the most common and should be supported in all authenticator apps.
-If you're wondering why may want to use this package instead of others, check the section [Why yet another TOTP package](#why-yet-another-totp-package) at the bottom.
+If you're wondering why you may want to use this package instead of others, check the section [Why yet another TOTP package](#why-yet-another-totp-package) at the bottom.
 
 ## Usage
 Install the package by running
