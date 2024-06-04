@@ -61,7 +61,6 @@ OTP.
 
 ## Why yet another TOTP package?
 There are some widely used node TOTP/2FA packages available. However, when I researched them, all of them seemed to be unmaintained and have some areas that could be improved (including security-critical issues).
-Obviously, the TOTP specification is 10 years old and didn't change since then - but I was still unhappy with the packages available.
 
 Your use-case might vary (e.g. if you need more customization than this package can offer), but here are the reasons why I didn't use other packages and decided to write my own:
 
@@ -81,10 +80,3 @@ Your use-case might vary (e.g. if you need more customization than this package 
     * `notp` contains code that has been deprecated in node, e.g. `new Buffer(...)`. This is not a security issue - but will show a deprecation warning for everyone using their package. There is a [PR](https://github.com/guyht/notp/pull/59) from 2021 which has not been merged yet.
   * This package doesn't have a changelog (or at least I couldn't find it)
 * No other package uses constant-time comparisons for checking the code. I don't think that timing attacks are very likely, but using a constant-time comparison function is super easy and prevents these attacks.
-
-### Why does @chax-at/totp have no customization options?
-In short: because I want to keep it simple. Currently, this package has 1 dependency and ~100 lines of code (with explanation and links to the RFCs) that you can read and understand.
-That's pretty cool for something as security-critical as TOTP.
-
-I have never encountered a use-case for more options - does anyone actually use e.g. 8 digit-codes, or sha256, any time step other than 30s, ...?
-And does each authenticator app support these use-cases? If so, and you would really want me to add support for this use-case, then please explain your use-case by creating a GitHub issue.
