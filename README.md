@@ -79,4 +79,4 @@ Your use-case might vary (e.g. if you need more customization than this package 
   * It depends on `notp` for key generation
     * `notp` contains code that has been deprecated in node, e.g. `new Buffer(...)`. This is not a security issue - but will show a deprecation warning for everyone using their package. There is a [PR](https://github.com/guyht/notp/pull/59) from 2021 which has not been merged yet.
   * This package doesn't have a changelog (or at least I couldn't find it)
-* No other package uses constant-time comparisons for checking the code. I don't think that timing attacks are very likely, but using a constant-time comparison function is super easy and prevents these attacks.
+* No other package uses constant-time comparisons for checking the code. I don't think that timing attacks are very likely, but using a constant-time comparison function prevents these attacks.
