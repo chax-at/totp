@@ -1,6 +1,6 @@
 {
   "name": "@chax-at/totp",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "A simple TOTP package",
   "license": "MIT",
   "author": "chax.at - Challenge Accepted",
@@ -24,19 +24,19 @@
     "ci:version": "node -p \"require('./package.json').version\""
   },
   "devDependencies": {
-    "@chax-at/eslint-config": "^0.1.0",
-    "@swc/core": "^1.3.69",
-    "@swc/jest": "^0.2.26",
-    "@types/jest": "^29.5.3",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^9.0.0",
-    "jest": "^29.6.1",
-    "lint-staged": "^15.0.2",
-    "prettier": "3.0.3",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.1.6"
+    "@chax-at/eslint-config": "^0.1.1",
+    "@swc/core": "^1.12.1",
+    "@swc/jest": "^0.2.38",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "3.5.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
   },
   "files": [
     "/lib",
@@ -44,5 +44,8 @@
   ],
   "lint-staged": {
     "{src,test}/**/*.ts": "prettier --write"
+  },
+  "engines": {
+    "node": ">= 20"
   }
 }
